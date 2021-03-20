@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import Style from "./MovieDetails.module.scss";
 
 export default class MovieDetails extends Component {
-    render() {
+   
+    render () {
+
         return (
-            <div className={Style.myContainer + " w-25 bg-light p-4 d-flex flex-column"}>
-                <h5>{this.props.movie.title}</h5>
+            <div className={ Style.myContainer + " w-25 bg-light p-4 d-flex flex-column" }>
+                <h5>{ this.props.movie.title }</h5>
                 <hr className="w-100" />
                 <div>
                     <img
