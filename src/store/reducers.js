@@ -1,3 +1,4 @@
+import movies from './movies/movies.reducers'
 // {
 //     movies: {
 //         date: [],
@@ -11,3 +12,8 @@
 //         error: null,
 //     }
 // }
+
+// eslint-disable-next-line
+export default {
+    movies
+}
