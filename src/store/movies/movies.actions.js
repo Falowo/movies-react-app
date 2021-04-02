@@ -2,8 +2,8 @@ import apiMovieRequest from '../../conf/api.movie';
 
 export const REQUEST_MOVIES = 'request movies';
 export const FETCH_MOVIES = 'fetch movies';
-export const FETCH_MOVIES_SUCCESS = 'fech movies success';
-export const FETCH_MOVIES_ERROR = 'fech movies error';
+export const FETCH_MOVIES_SUCCESS = 'fetch movies success';
+export const FETCH_MOVIES_ERROR = 'fetch movies error';
 export const SET_SELECTED_MOVIE = 'set selected movie';
 
 export const requestMovies = () => ( {
