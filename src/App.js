@@ -1,11 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Header } from "./components";
-import Films from './features/films/index';
-import Favoris from './features/favoris/index';
 import apiMovie, { apiMovieMap } from './conf/api.movie';
 import apiFirebase from './conf/api.firebase';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 
+const LazyFilms = lazy(
+  () => import(/* webpackChunkName: "Films" */'./features/films/index' ) );
+const LazyFavoris = lazy(
+  () => import(/* webpackChunkName: "Favoris" */'./features/favoris/index' ) );
 class App extends Component {
 
   constructor ( props ) {
@@ -88,35 +95,13 @@ class App extends Component {
       <Router>
         <div className="App d-flex flex-column ">
           <Header />
-          <Switch>
-            <Route path="/films" render={ ( props ) => {
-              return (
-                <Films
-                  { ...props }
-                  loaded={ this.state.loaded }
-                  updateMovies={ this.updateMovies }
-                  updateSelectedMovie={ this.updateSelectedMovie }
-                  movies={ this.state.movies }
-                  selectedMovie={ this.state.selectedMovie }
-                  addFavori={ this.addFavori }
-                  removeFavori={ this.removeFavori }
-                  favoris={ this.state.favoris }
-                />
-              );
-            } } />
-            <Route path="/favoris" render={ ( props ) => {
-              return (
-                <Favoris
-                  { ...props }
-                  favoris={ this.state.favoris }
-                  removeFavori={ this.removeFavori }
-                  loaded={ this.state.loaded
-                  }
-                />
-              );
-            } } />
+          <Suspense fallback={<h1>Loading ...</h1>}>
+            <Switch>
+            <Route path="/films" component={ LazyFilms } />
+            <Route path="/favoris" component={ LazyFavoris } />
             <Redirect to="/films" />
           </Switch>
+          </Suspense>
         </div>
       </Router>
     );
