@@ -1,4 +1,5 @@
-import movies from './movies/movies.reducers'
+import movies from './movies/movies.reducers';
+import favoris from './favoris/favoris.reducers';
 // {
 //     movies: {
 //         date: [],
@@ -15,5 +16,5 @@ import movies from './movies/movies.reducers'
 
 // eslint-disable-next-line
 export default {
-    movies
-}
+    movies, favoris
+};

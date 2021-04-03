@@ -66,7 +66,7 @@ export const removeFavorisError = error => ( {
 } );
 
 export const tryRemoveFavori = title => ( dispatch, getState ) => {
-    const favoris = [ ...getState().favoris.data ].slice();
+    const favoris = [ ...getState().favoris.data ];
     const index = favoris.findIndex( f => f.title === title );
     favoris.splice( index, 1 );
     return apiFirebaseRequest.saveFavoris( favoris ).then(
