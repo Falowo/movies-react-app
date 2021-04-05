@@ -1,41 +1,58 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import apiMovie, { apiMovieMap } from '../../../../conf/api.movie';
 
 export default class SearchBar extends Component {
+    componentDidMount () {
+        this.submit( { query: "all", language: "en-EN" } );
+    }
 
-
-    submit = (values, actions) => {
-        // console.log( values );
-        const query = '?' + Object.keys(values).map(k => `${ k }=${ values[ k ] }&`).join('');
-        apiMovie.get('/search/movie' + query)
-            .then(response => response.data.results)
-            .then(moviesApi => {
-                const movies = moviesApi.map(apiMovieMap);
-                this.props.updateMovies(movies);
-            })
-            .catch(err => console.log(err))
-            .then(actions.setSubmitting(false));
-
+    submit = ( values, actions ) => {
+        this.props.fetchMovies( values ).then(
+            () => console.log( actions )
+        );
     };
+
     render () {
         return (
             <Formik
                 onSubmit={ this.submit }
-                initialValues={ { query: '', language: 'en-US' } }
+                initialValues={ { query: 'all', language: 'en-EN' } }
             >
-                {({ handleSubmit, handleChange, handleBlur, isSubmitting }) => (
-                    <form className="d-flex flex-row p-2 m-2" onSubmit={ handleSubmit }>
-                        <input name="query" className="flex-fill form-control me-2" placeholder="Search ..." onChange={ handleChange } onBlur={ handleBlur } />
-                        <select className="me-2 form-control w-25" name="language" onChange={ handleChange } onBlur={ handleBlur }>
-                            <option value="en-US">Anglais</option>
+                {( { values,
+                    handleSubmit,
+                    handleChange,
+                    handleBlur,
+                    isSubmitting
+                } ) => (
+                    <form
+                        className="d-flex flex-row p-2 m-2"
+                        onSubmit={ handleSubmit }>
+                        <input
+                            name="query"
+                            className="flex-fill form-control me-2"
+                            placeholder="Search ..."
+                            onChange={ handleChange }
+                            onBlur={ handleBlur }
+                            value={ values.query }
+                        />
+                        <select
+                            className="me-2 form-control w-25"
+                            name="language"
+                            onChange={ handleChange }
+                            onBlur={ handleBlur }
+                        >
                             <option value="fr-FR">Français</option>
+                            <option value="en-US">Anglais</option>
                         </select>
-                        <button className="btn btn-sm btn-success" type="submit" disabled={ isSubmitting }>Submit</button>
-
+                        <button
+                            className="btn btn-sm btn-success"
+                            type="submit"
+                            disabled={ isSubmitting }
+                        >
+                            Submit
+                        </button>
                     </form>
                 ) }
-
             </Formik>
         );
     }

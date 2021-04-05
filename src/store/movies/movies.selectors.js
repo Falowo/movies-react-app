@@ -21,3 +21,4 @@ export const moviesSelectedMovieSelector = createSelector(
     [ moviesListSelector, moviesSelectedMovieIndexSelector ],
     ( moviesData, index ) => moviesData[ index ]
 );
+

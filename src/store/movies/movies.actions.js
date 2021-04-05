@@ -1,4 +1,4 @@
-import apiMovieRequest from '../../conf/api.movie';
+import  ApiMovie  from '../../conf/api.movie';
 
 export const REQUEST_MOVIES = 'request movies';
 export const FETCH_MOVIES = 'fetch movies';
@@ -21,8 +21,8 @@ export const fetchMoviesError = error => ( {
 } );
 
 export const fetchMovies = ( filter ) => dispatch => {
-    dispatch( requestMovies );
-    return apiMovieRequest.searchMovies( filter ).then(
+    dispatch( requestMovies() );
+    return ApiMovie.searchMovies( filter ).then(
         movies => dispatch( fetchMoviesSuccess( movies ) ),
         error => dispatch( fetchMoviesError( error ) )
     );

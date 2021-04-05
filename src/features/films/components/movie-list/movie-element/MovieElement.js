@@ -33,7 +33,7 @@ export default class MovieElement extends Component {
                             <button
                                 onClick={ (e) => {
                                     e.stopPropagation();
-                                    this.props.addFavori(this.props.movie.title);
+                                    this.props.addFavori(this.props.movie);
                                 } }
                                 className="btn btn-sm btn-primary">
                                 Add

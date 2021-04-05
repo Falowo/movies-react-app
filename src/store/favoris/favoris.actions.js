@@ -1,25 +1,25 @@
-import apiFirebaseRequest from '../../conf/api.firebase';
+import ApiFirebase from '../../conf/api.firebase';
 
 export const REQUEST_FAVORIS = 'request favoris';
 export const FETCH_FAVORIS = 'fetch favoris';
 export const FETCH_FAVORIS_SUCCESS = 'fetch favoris success';
 export const FETCH_FAVORIS_ERROR = 'fetch favoris error';
 
-export const TRY_ADD_FAVORIS = 'try add favoris';
-export const ADD_FAVORIS_SUCCESS = 'add favoris success';
-export const ADD_FAVORIS_ERROR = 'add favoris error';
+export const TRY_ADD_FAVORI = 'try add favori';
+export const ADD_FAVORI_SUCCESS = 'add favori success';
+export const ADD_FAVORI_ERROR = 'add favori error';
 
-export const TRY_REMOVE_FAVORIS = 'try remove favoris';
-export const REMOVE_FAVORIS_SUCCESS = 'remove favoris success';
-export const REMOVE_FAVORIS_ERROR = 'remove favoris error';
+export const TRY_REMOVE_FAVORI = 'try remove favori';
+export const REMOVE_FAVORI_SUCCESS = 'remove favori success';
+export const REMOVE_FAVORI_ERROR = 'remove favori error';
 
 export const requestFavoris = () => ( {
     type: REQUEST_FAVORIS
 } );
 
-export const fetchFavorisSuccess = Favoris => ( {
+export const fetchFavorisSuccess = favoris => ( {
     type: FETCH_FAVORIS_SUCCESS,
-    Favoris
+    favoris
 } );
 
 export const fetchFavorisError = error => ( {
@@ -28,8 +28,8 @@ export const fetchFavorisError = error => ( {
 } );
 
 export const fetchFavoris = () => dispatch => {
-    dispatch( requestFavoris );
-    return apiFirebaseRequest.fetchFavoris().then(
+    dispatch( requestFavoris() );
+    return ApiFirebase.fetchFavoris().then(
         favoris => dispatch( fetchFavorisSuccess( favoris ) ),
         error => dispatch( fetchFavorisError( error ) )
     );
@@ -37,31 +37,31 @@ export const fetchFavoris = () => dispatch => {
 };
 
 
-export const addFavorisSuccess = favoris => ( {
-    type: ADD_FAVORIS_SUCCESS,
+export const addFavoriSuccess = favoris => ( {
+    type: ADD_FAVORI_SUCCESS,
     favoris
 } );
 
-export const addFavorisError = error => ( {
-    type: ADD_FAVORIS_ERROR,
+export const addFavoriError = error => ( {
+    type: ADD_FAVORI_ERROR,
     error
 } );
 
 export const tryAddFavori = movie => ( dispatch, getState ) => {
     const favoris = [ ...getState().favoris.data, movie ];
-    return apiFirebaseRequest.saveFavoris( favoris ).then(
-        () => dispatch( addFavorisSuccess( favoris ) ),
-        error => dispatch( addFavorisError( error ) )
+    return ApiFirebase.saveFavoris( favoris ).then(
+        () => dispatch( addFavoriSuccess( favoris ) ),
+        error => dispatch( addFavoriError( error ) )
     );
 };
 
-export const removeFavorisSuccess = favoris => ( {
-    type: REMOVE_FAVORIS_SUCCESS,
+export const removeFavoriSuccess = favoris => ( {
+    type: REMOVE_FAVORI_SUCCESS,
     favoris
 } );
 
-export const removeFavorisError = error => ( {
-    type: REMOVE_FAVORIS_ERROR,
+export const removeFavoriError = error => ( {
+    type: REMOVE_FAVORI_ERROR,
     error
 } );
 
@@ -69,8 +69,8 @@ export const tryRemoveFavori = title => ( dispatch, getState ) => {
     const favoris = [ ...getState().favoris.data ];
     const index = favoris.findIndex( f => f.title === title );
     favoris.splice( index, 1 );
-    return apiFirebaseRequest.saveFavoris( favoris ).then(
-        () => dispatch( removeFavorisSuccess( favoris ) ),
-        error => dispatch( removeFavorisError( error ) )
+    return ApiFirebase.saveFavoris( favoris ).then(
+        () => dispatch( removeFavoriSuccess( favoris ) ),
+        error => dispatch( removeFavoriError( error ) )
     );
 };

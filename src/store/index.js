@@ -13,6 +13,5 @@ if ( process.env.NODE_ENV === 'development' ) {
 }
 
 export const store = createStore( appReducers, composeWithDevTools(
-    applyMiddleware( ...middlewares ) ) );
-
-export default store;
+    applyMiddleware( ...middlewares ) )
+);

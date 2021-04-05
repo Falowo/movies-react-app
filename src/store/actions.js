@@ -1,2 +1,3 @@
 export * from './movies/movies.actions';
 export * from './favoris/favoris.actions';
+export * from './movies/movies.actions';

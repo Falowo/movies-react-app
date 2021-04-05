@@ -1,6 +1,6 @@
 import * as actions from './favoris.actions';
 
-export default ( state = {
+const FavoriReducer = ( state = {
     data: [],
     isLoading: false,
     error: null
@@ -9,7 +9,7 @@ export default ( state = {
         case actions.FETCH_FAVORIS_SUCCESS: {
             return {
                 ...state,
-                data: actions.addFavorisError,
+                data: action.favoris,
                 isLoading: false,
                 error: null
             };
@@ -21,26 +21,26 @@ export default ( state = {
                 error: action.error
             };
         }
-        case actions.REMOVE_FAVORIS_SUCCESS:
-        case actions.ADD_FAVORIS_SUCCESS: {
+        case actions.REMOVE_FAVORI_SUCCESS:
+        case actions.ADD_FAVORI_SUCCESS: {
             return {
                 ...state,
-                data: actions.favoris,
+                data: action.favoris,
                 error: null
             };
         }
-        case actions.REMOVE_FAVORIS_ERROR:
-        case actions.ADD_FAVORIS_ERROR: {
+        case actions.REMOVE_FAVORI_ERROR:
+        case actions.ADD_FAVORI_ERROR: {
             return {
                 ...state,
                 error: action.error
             };
         }
         default: {
-            return {
-                ...state
-            };
+            return state;
         }
 
     }
 };
+
+export default FavoriReducer;
